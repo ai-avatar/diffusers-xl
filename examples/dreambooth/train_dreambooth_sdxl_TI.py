@@ -284,14 +284,7 @@ def parse_args():
         type=str,
         default="",     
         help="Current session directory",
-    )   
-
-    parser.add_argument(
-        "--instance_prompt",
-        type=str,
-        default="",     
-        help="Instance prompt",
-    )   
+    )  
 
     parser.add_argument(
         "--external_captions",
