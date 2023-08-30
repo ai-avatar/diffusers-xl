@@ -493,20 +493,10 @@ class DreamBoothDataset(Dataset):
             pt=pt.replace(")","")
             pt=pt.replace("-","")
             pt=pt.replace("conceptimagedb","")  
-            
-            if args.external_captions:
-              cptpth=os.path.join(args.captions_dir, filename+'.txt')
-              if os.path.exists(cptpth):
-                with open(cptpth, "r") as f:
-                    instance_prompt=f.read()
-              else:
-                instance_prompt=pt
-            else:
-                instance_prompt = pt
         
         example["instance_images"] = self.image_transforms(instance_image)
         with torch.no_grad():
-            example["instance_prompt_ids"], example["instance_added_cond_kwargs"]= compute_embeddings(args, instance_prompt, self.text_encoders, self.tokenizers)
+            example["instance_prompt_ids"], example["instance_added_cond_kwargs"]= compute_embeddings(args, args.instance_prompt, self.text_encoders, self.tokenizers)
         return example
 
             
