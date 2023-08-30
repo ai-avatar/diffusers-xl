@@ -284,7 +284,14 @@ def parse_args():
         type=str,
         default="",     
         help="Current session directory",
-    )    
+    )   
+
+    parser.add_argument(
+        "--instance_prompt",
+        type=str,
+        default="",     
+        help="Instance prompt",
+    )   
 
     parser.add_argument(
         "--external_captions",
@@ -392,28 +399,8 @@ class DreamBoothDataset(Dataset):
         instance_image = Image.open(path)
         if not instance_image.mode == "RGB":
             instance_image = instance_image.convert("RGB")
-
-        if self.image_captions_filename:
-            filename = Path(path).stem
-            
-            pt=''.join([i for i in filename if not i.isdigit()])
-            pt=pt.replace("_"," ")
-            pt=pt.replace("(","")
-            pt=pt.replace(")","")
-            pt=pt.replace("-","")
-            pt=pt.replace("conceptimagedb","")  
-            
-            if args.external_captions:
-              cptpth=os.path.join(args.captions_dir, filename+'.txt')
-              if os.path.exists(cptpth):
-                with open(cptpth, "r") as f:
-                    instance_prompt=pt+' '+f.read()
-              else:
-                instance_prompt=pt
-            else:
-                instance_prompt = pt
         
-        self.instance_prompt=instance_prompt
+        self.instance_prompt=args.instance_prompt
         
         example["instance_images"] = self.image_transforms(instance_image)
         
