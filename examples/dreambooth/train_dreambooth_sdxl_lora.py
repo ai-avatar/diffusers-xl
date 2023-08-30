@@ -688,8 +688,8 @@ def main():
     vae.eval()
     unet.eval()
     
-    model_path = os.path.join(args.Session_dir, os.path.basename(args.Session_dir) + ".safetensors")
-    model_path_TI = os.path.join(args.Session_dir, os.path.basename(args.Session_dir) + "_TI.safetensors")
+    model_path = args.Session_dir + ".safetensors"
+    model_path_TI = args.Session_dir + "_TI.safetensors"
     network = create_network(1, args.dim, 20000, unet)
     if args.resume:
         network.load_weights(model_path)
