@@ -567,7 +567,7 @@ def main():
     text_encoder_one.requires_grad_(False)
     text_encoder_two.requires_grad_(False)
 
-    model_path = os.path.join(args.Session_dir, os.path.basename(args.Session_dir) + "_TI.safetensors")
+    model_path = args.Session_dir + "_TI.safetensors"
     network = create_network(1, args.dim, 20000, text_encoders)
 
     unet.enable_xformers_memory_efficient_attention()
