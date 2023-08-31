@@ -397,7 +397,7 @@ class DreamBoothDataset(Dataset):
         
         example["instance_images"] = self.image_transforms(instance_image)
         
-        example["instance_prompt"]=instance_prompt
+        example["instance_prompt"]=args.instance_prompt
 
 
         return example
